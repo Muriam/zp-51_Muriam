@@ -1,12 +1,12 @@
 #include <iostream>
 #include <conio.h>
-#include <cstring> //для ф-ции strcmp
+#include <cstring> //РґР»СЏ С„-С†РёРё strcmp
 #define N 8
 
 
 using namespace std;
 
-/*структура базы данных*/
+/*СЃС‚СЂСѓРєС‚СѓСЂР° Р±Р°Р·С‹ РґР°РЅРЅС‹С…*/
 struct dataBase
 {
 	char name[33];
@@ -16,35 +16,35 @@ struct dataBase
 };
 
 
-/*прототипы*/
+/*РїСЂРѕС‚РѕС‚РёРїС‹*/
 bool ReadBase(struct dataBase *p, int* indArr, int* indArr2);
 int output(dataBase *db, int* indArr);
 int bubbleSortName(dataBase *db, int* indArr);
 int bubbleSortSum(dataBase *db, int* indArr);
 
 
-/* чтение базы из файла */
-bool ReadBase(dataBase *p, int* indArr, int* indArr2) //указатель на переменную с типом структуры, указатель на индексные массивы
+/* С‡С‚РµРЅРёРµ Р±Р°Р·С‹ РёР· С„Р°Р№Р»Р° */
+bool ReadBase(dataBase *p, int* indArr, int* indArr2) //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ С‚РёРїРѕРј СЃС‚СЂСѓРєС‚СѓСЂС‹, СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёРЅРґРµРєСЃРЅС‹Рµ РјР°СЃСЃРёРІС‹
 {
 	FILE *base = fopen("base3.dat", "rb");
-	if (base == NULL) { cout << "ошибка!" << endl; return 1; }
+	if (base == NULL) { cout << "РѕС€РёР±РєР°!" << endl; return 1; }
 	for (int i = 0, advSize = 22, nameSize = 32, dateSize = 8; i<N; i++)
 	{
-		fread(p[i].name, sizeof(char), nameSize, base);  //(где 1 - количество ячеек памяти, 32 - количество символов в ячейках) 
+		fread(p[i].name, sizeof(char), nameSize, base);  //(РіРґРµ 1 - РєРѕР»РёС‡РµСЃС‚РІРѕ СЏС‡РµРµРє РїР°РјВ¤С‚Рё, 32 - РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЏС‡РµР№РєР°С…)
 		fread(&(p[i].sumContribution), sizeof(unsigned short int), 1, base);
 		fread(p[i].date, sizeof(char), dateSize, base);
 		fread(p[i].advocate, sizeof(char), advSize, base);
 		p[i].name[nameSize] = 0;
 		p[i].advocate[advSize] = 0;
 		p[i].date[dateSize] = 0;
-		indArr[i] = i;//Создание индексного массива
-		indArr2[i] = i; //Создание индексного массива2
+		indArr[i] = i; //СЃРѕР·РґР°РЅРёРµ РёРЅРґРµРєСЃРЅРѕРіРѕ РјР°СЃСЃРёРІР°
+		indArr2[i] = i; //СЃРѕР·РґР°РЅРёРµ РёРЅРґРµРєСЃРЅРѕРіРѕ РјР°СЃСЃРёРІР°2
 	}
 	fclose(base);
 	return 0;
 }
 
-/* вывод на экран */
+/* РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ */ 
 int output(dataBase *db, int* indArr)
 {
 
@@ -61,16 +61,16 @@ int output(dataBase *db, int* indArr)
 }
 
 
-/* сортировка методом пузырька по фамилии вкладчика (name) */
+/* СЃРѕСЂС‚РёСЂРѕРІРєР° РјРµС‚РѕРґРѕРј РїСѓР·С‹СЂСЊРєР° РїРѕ С„Р°РјРёР»РёРё РІРєР»Р°РґС‡РёРєР° (name) */
 int bubbleSortName(dataBase *db, int* indArr)
 {
 	int temp;
 	for (int i = 0; i<N - 1; i++)
 	{
 		for (int j = 0; j<N - 1 - i; j++)
-			if (strcmp(db[indArr[j]].name, db[indArr[j + 1]].name)>0)    //сравниваем элементы массива, через индексный массив
+			if (strcmp(db[indArr[j]].name, db[indArr[j + 1]].name)>0) //СЃСЂР°РІРЅРёРІР°РµРј СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°, С‡РµСЂРµР· РёРЅРґРµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ
 			{
-				// Меняем элементы местами. Элементы массива db фактически не перемещаются, но мы меняем их порядок в индексном массиве.
+				// РјРµРЅСЏРµРј СЌР»РµРјРµРЅС‚С‹ РјРµСЃС‚Р°РјРё. Р­Р»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° db С„Р°РєС‚РёС‡РµСЃРєРё РЅРµ РїРµСЂРµРјРµС‰Р°СЋС‚СЃСЏ, РЅРѕ РјС‹ РјРµРЅСЏРµРј РёС… РїРѕСЂСЏРґРѕРє РІ РёРЅРґРµРєСЃРЅРѕРј РјР°СЃСЃРёРІРµ.
 				temp = indArr[j];
 				indArr[j] = indArr[j + 1];
 				indArr[j + 1] = temp;
@@ -82,17 +82,17 @@ int bubbleSortName(dataBase *db, int* indArr)
 }
 
 
-/* сортировка методом пузырька по сумме вклада (sumContribution) */
+/* СЃРѕСЂС‚РёСЂРѕРІРєР° РјРµС‚РѕРґРѕРј РїСѓР·С‹СЂСЊРєР° РїРѕ СЃСѓРјРјРµ РІРєР»Р°РґР° (sumContribution) */
 int bubbleSortSum(dataBase *db, int* indArr)
 {
 	int temp2;
 	for (int i = 0; i<N-1; i++)
 	{
 		for (int j = 0; j<N-1; j++)
-			if (db[indArr[j]].sumContribution > db[indArr[j + 1]].sumContribution)   //Сравниваем элементы массива, через индексный массив
+			if (db[indArr[j]].sumContribution > db[indArr[j + 1]].sumContribution) //СЃСЂР°РІРЅРёРІР°РµРј СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°, С‡РµСЂРµР· РёРЅРґРµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ 
 		 
 			{
-				// Меняем элементы местами. Элементы массива db фактически не перемещаются, но мы меняем их порядок в индексном массиве
+				// РјРµРЅСЏРµРј СЌР»РµРјРµРЅС‚С‹ РјРµСЃС‚Р°РјРё. Р­Р»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° db С„Р°РєС‚РёС‡РµСЃРєРё РЅРµ РїРµСЂРµРјРµС‰Р°СЋС‚СЃСЏ, РЅРѕ РјС‹ РјРµРЅСЏРµРј РёС… РїРѕСЂСЏРґРѕРє РІ РёРЅРґРµРєСЃРЅРѕРј РјР°СЃСЃРёРІРµ
 				temp2 = indArr[j];
 				indArr[j] = indArr[j + 1];
 				indArr[j + 1] = temp2;
@@ -106,25 +106,25 @@ int bubbleSortSum(dataBase *db, int* indArr)
 
 int main()
 {		
-	dataBase* db = new dataBase[N];  //создание динамического массива db
-	int* indArr = new int[N]; //индексный массив динамический indArr
-	int* indArr2 = new int[N]; //индексный массив динамический indArr2
+	dataBase* db = new dataBase[N]; //СЃРѕР·РґР°РЅРёРµ РґРёРЅР°РјРёС‡РµСЃРєРѕРіРѕ РјР°СЃСЃРёРІР° db
+	int* indArr = new int[N]; //РёРЅРґРµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ РґРёРЅР°РјРёС‡РµСЃРєРёР№ indArr
+	int* indArr2 = new int[N]; //РёРЅРґРµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ РґРёРЅР°РјРёС‡РµСЃРєРёР№ indArr2
 
-	/* вызов функции чтения из файла */
+	/* РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё С‡С‚РµРЅРёСЏ РёР· С„Р°Р№Р»Р° */
 	ReadBase(db, indArr, indArr2); 
-	/* вывод на экран */
+	/* РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ */
 	output(db, indArr);  
 
 	
-	/* вызов функции сортировки пузырьком по имени */
+	/* РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё СЃРѕСЂС‚РёСЂРѕРІРєРё РїСѓР·С‹СЂСЊРєРѕРј РїРѕ РёРјРµРЅРё */
 	bubbleSortName(db, indArr); 	
-	/* вывод на экран */
+	/* РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ */
 	output(db, indArr);  
 
 	
-	/* вызов функции сортировки пузырьком по сумме вклада */
+	/* РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё СЃРѕСЂС‚РёСЂРѕРІРєРё РїСѓР·С‹СЂСЊРєРѕРј РїРѕ СЃСѓРјРјРµ РІРєР»Р°РґР° */
 	bubbleSortSum(db, indArr2); 
-	/* вывод на экран */
+	/* РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ */
 	output(db, indArr2);
 	
 
