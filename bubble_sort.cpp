@@ -1,6 +1,4 @@
 #include <iostream>
-#include <conio.h>
-#include <ctime>
 #include <cstdlib>
 #include <locale>
 #define SIZE 10
@@ -12,31 +10,30 @@ int main()
     setlocale(LC_ALL, "rus");
     
     int array[SIZE];
-    int temp = 0;
+    int temp = 0;   
     
-    srand(time(NULL));
-    
-    cout << "èñõîäíûé ìàññèâ" << endl;
-    for(int i=0; i<=SIZE-1; i++) 
+    cout << "исходный массив" << endl;
+    for (int i=0; i<SIZE; i++) 
     {
         array[i] = rand()%100;
         cout << array[i] << " ";
     }
     
-    cout << "\n\nïóçûðüêîâàÿ ñîðòèðîâêà ïî âîçðàñòàíèþ" << endl;   
-    for (int i = 0; i < SIZE-1; i++)
-    {
-        if (array[i] > array[i+1])
-        {
-            temp = array[i];     
-            array[i] = array[i+1]; 
-            array[i+1] = temp;    
-        }
-    }
-    for(int i=0; i <= SIZE-1; i++) 
-       cout << array[i] << " ";
-    
+    cout << "\nпузырьковая сортировка по возрастанию" << endl;       
+	int i,j;
+	for (i = 0; i < SIZE-1; i++) 
+		for (j = SIZE-2; j >= i; j--)
+			if (array[j] > array[j+1]) 
+			{
+				int temp = array[j]; 
+                array[j] = array[j+1]; 
+				array[j+1] = temp;
+			}
+			      
+    for (int i = 0; i <= SIZE-1; i++) 
+    cout << array[i] << " ";
+    cout << "\n\n";
         
-    getch();
+    system("pause");
     return 0;
 }
