@@ -19,20 +19,22 @@ int main()
         cout << array[i] << " ";
     }
     
-    cout << "\nсортировка методом пр¤мого выбора" << endl;       
-	  for (int i = 0; i < SIZE-1; i++) 
-	  { 
-		    min = i;                            // индекс минимального элемента
-		    for (int j = i+1; j < SIZE; j++) 
-		        if (array[ j ] < array[min])    // если текущий элемент меньше минимального
-		            min = j;                    // запоминаю его индекс
-		            temp = array[i];            //
-		            array[i] = array[min];      // меняю местами
-		            array[min] = temp;          //
-	  }
+    cout << "\nсортировка методом прямого выбора" << endl;       
+	for (int i = 0; i < SIZE-1; i++) 
+	{ 
+	    min = i;                           // индекс минимального элемента
+	    for (int j = i+1; j < SIZE; j++) 
+	        if (array[ j ] < array[min])   // если текущий элемент меньше минимального 
+                {           
+		     min = j;                   // запоминаю его индекс
+                }                  
+	    temp = array[i];         //
+	    array[i] = array[min];   // меняю местами
+	    array[min] = temp;       //
+	}
 			      
     for (int i = 0; i <= SIZE-1; i++) 
-		cout << array[i] << " ";
+        cout << array[i] << " ";
     cout << "\n\n";
         
     system("pause");
