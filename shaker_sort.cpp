@@ -48,7 +48,6 @@ int main()
 		left = border;                               // запоминаю границу
 	}
         
-    cout << "шейкерная сортировка" << endl;
     for (int i=0; i < SIZE; i++)
         cout << array[i] << " ";
     cout << "\n\n";
