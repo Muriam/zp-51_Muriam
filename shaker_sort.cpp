@@ -20,7 +20,7 @@ int main()
         cout << array[i] << " ";
     }
 
- 	cout << "шейкерная сортировка" << endl;
+ 	cout << "\nшейкерная сортировка" << endl;
 	for (right=SIZE-1, left=0, border=-1; border!=0;)      // устанавливаю правую и левую границы
 	{
 		border = 0;
