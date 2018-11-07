@@ -52,7 +52,7 @@ void bubble_sort(int array[SIZE])
 			if (array[j] > array[j+1])      // если предыдущий элемент больше следующего
 			{
 				temp = array[j];            //
-                array[j] = array[j+1];      // меняю местами
+                                array[j] = array[j+1];      // меняю местами
 				array[j+1] = temp;          //
 			}			
 }
@@ -66,9 +66,9 @@ void select_sort(int array[SIZE])
 	    min = i;                           // индекс минимального элемента
 	    for (int j = i+1; j < SIZE; j++) 
 	        if (array[ j ] < array[min])   // если текущий элемент меньше минимального 
-            {           
-		     min = j;                      // запоминаю его индекс
-            }                  
+                {           
+		     min = j;                  // запоминаю его индекс
+                }                  
 	    temp = array[i];         //
 	    array[i] = array[min];   // меняю местами
 	    array[min] = temp;       //
