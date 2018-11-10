@@ -9,6 +9,7 @@ using namespace std;
 void random_array(int array[SIZE]);
 void bubble_sort(int array[SIZE]);
 void select_sort(int array[SIZE]);
+void shaker_sort(int array[SIZE]);
 
 
 int main() 
@@ -28,6 +29,13 @@ int main()
     for (int i = 0; i <= SIZE-1; i++) 
         cout << array[i] << " ";
     cout << "\n\n";
+    
+    random_array(array);
+    shaker_sort(array);
+    for (int i=0; i <= SIZE-1; i++)
+        cout << array[i] << " ";
+    cout << "\n\n";
+    
      
     getch();
     return 0;
@@ -46,31 +54,63 @@ void random_array(int array[SIZE])
 void bubble_sort(int array[SIZE])
 {
     int temp;
-    cout << "\nпузырькова¤ сортировка" << endl;       
-	for (int i = 0; i < SIZE-1; i++) 
-		for (int j = SIZE-2; j >= i; j--)
-			if (array[j] > array[j+1])      // если предыдущий элемент больше следующего
-			{
-				temp = array[j];            //
-                                array[j] = array[j+1];      // меняю местами
-				array[j+1] = temp;          //
-			}			
+    cout << "\nпузырьковая сортировка" << endl;       
+    for (int i = 0; i < SIZE-1; i++) 
+        for (int j = SIZE-2; j >= i; j--)
+	    if (array[j] > array[j+1])           // если предыдущий элемент больше следующего
+	    {
+                temp = array[j];                 //
+                array[j] = array[j+1];           // меняю их местами
+		array[j+1] = temp;               //
+	    }			
 }
 
 void select_sort(int array[SIZE])
 {    
     int min, temp;
-    cout << "\nсортировка методом пр¤мого выбора" << endl;       
+    cout << "\nсортировка методом прямого выбора" << endl;       
 	for (int i = 0; i < SIZE-1; i++) 
 	{ 
-	    min = i;                           // индекс минимального элемента
+	    min = i;                                 // индекс минимального элемента
 	    for (int j = i+1; j < SIZE; j++) 
-	        if (array[ j ] < array[min])   // если текущий элемент меньше минимального 
+	        if (array[ j ] < array[min])         // если текущий элемент меньше минимального 
                 {           
-		     min = j;                  // запоминаю его индекс
+		    min = j;                         // запоминаю его индекс
                 }                  
-	    temp = array[i];         //
-	    array[i] = array[min];   // меняю местами
-	    array[min] = temp;       //
+	    temp = array[i];                         //
+	    array[i] = array[min];                   // меняю их местами
+	    array[min] = temp;                       //
+	}
+}
+
+void shaker_sort(int array[SIZE])
+{
+    int left, right, border, temp;    
+    cout << "\nшейкерная сортировка" << endl;
+	for (right=SIZE-1, left=0, border=-1; border!=0;)    // устанавливаю правую и левую границы
+	{
+	    border = 0;
+	    for (int i=left; i<right; i++)           // двигаюсь слева направо
+	    {
+	        if (array[i] > array[i+1])           // если текущий элемент больше следующего
+		{ 
+		    temp = array[i];                 // 
+	            array[i] = array[i+1];           // меняю их местами
+		    array[i+1] = temp;               //
+		    border = i;                      // устанавливаю метку последней перестановки 
+		}
+	    }   
+		right = border;                          // запоминаю правую границу 
+		for (int i=right; i>left; i--)           // двигаюсь справа налево
+		{
+		    if (array[i-1] > array[i])           // если текущий элемент меньше следующего
+		    {
+		        temp = array[i];                 // 
+			array[i] = array[i-1];           // меняю их местами
+			array[i-1] = temp;	         //
+			border = i;                      // устанавливаю метку последней перестановки
+		    }
+		}
+		left = border;                           // запоминаю границу
 	}
 }
