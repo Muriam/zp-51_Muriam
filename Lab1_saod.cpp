@@ -62,7 +62,8 @@ void bubble_sort(int array[SIZE], int &comparison, int &transfer)
     for (int i = 0; i < SIZE-1; i++)
     {
         for (int j = SIZE-2; j >= i; j--)
-	{    comparison++;                       // инкремент сравнений
+	{    
+	    comparison++;                        // инкремент сравнений
 	    if (array[j] > array[j+1])           // если предыдущий элемент больше следующего
 	    {
                 int temp = array[j];             //
