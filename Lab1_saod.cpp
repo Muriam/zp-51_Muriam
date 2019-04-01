@@ -7,7 +7,7 @@
 using namespace std;
 
 void random_array(int array[SIZE]);
-void bubble_sort(int array[SIZE]);
+void bubble_sort(int array[SIZE], int &comparison, int &transfer);
 void select_sort(int array[SIZE]);
 void shaker_sort(int array[SIZE]);
 
@@ -17,11 +17,16 @@ int main()
     setlocale(LC_ALL, "rus");
     
     int array[SIZE];
-      
-    random_array(array);    
-    bubble_sort(array); 
+    
+    int compar = 0;
+    int transf = 0;
+    random_array(array);
+    bubble_sort(array, compar, transf); 
     for (int i = 0; i <= SIZE-1; i++) 
         cout << array[i] << " ";
+    cout << "\n";    
+    cout << "сравнений " << compar << endl;
+    cout << "пересылок " << transf << endl;
     cout << "\n\n";
 
     random_array(array);
@@ -51,17 +56,18 @@ void random_array(int array[SIZE])
     }
 }
 
-void bubble_sort(int array[SIZE])
+void bubble_sort(int array[SIZE], int &comparison, int &transfer)
 {
-    int temp;
     cout << "\nпузырьковая сортировка" << endl;       
     for (int i = 0; i < SIZE-1; i++) 
         for (int j = SIZE-2; j >= i; j--)
+	    comparison++;                        // инкремент сравнений
 	    if (array[j] > array[j+1])           // если предыдущий элемент больше следующего
 	    {
-                temp = array[j];                 //
+                int temp = array[j];             //
                 array[j] = array[j+1];           // меняю их местами
 		array[j+1] = temp;               //
+		transfer++;                      // инкремент пересылок
 	    }			
 }
 
@@ -73,7 +79,7 @@ void select_sort(int array[SIZE])
 	{ 
 	    min = i;                                 // индекс минимального элемента
 	    for (int j = i+1; j < SIZE; j++) 
-	        if (array[ j ] < array[min])         // если текущий элемент меньше минимального 
+	        if (array[j] < array[min])           // если текущий элемент меньше минимального 
                 {           
 		    min = j;                         // запоминаю его индекс
                 }                  
