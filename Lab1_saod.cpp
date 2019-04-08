@@ -1,3 +1,4 @@
+/*Отсортировать список: пузырьковой, методом прямого выбора, и шейкерной сортировками. Подчситать кол-во сравнений и пересылок*/
 #include <iostream>
 #include <cstdlib>
 #include <locale>
@@ -8,18 +9,23 @@ using namespace std;
 
 void random_array(int array[SIZE]);
 void bubble_sort(int array[SIZE], int &comparison, int &transfer);
-void select_sort(int array[SIZE]);
+void select_sort(int array[SIZE], int &comparison2, int &transfer2);
 void shaker_sort(int array[SIZE]);
 
 
 int main() 
 {
     setlocale(LC_ALL, "rus");
+	
+    srand(time(0));  			// при каждом новом запуске программы генерирует другие случайные числа
     
     int array[SIZE];
     
     int compar = 0;
     int transf = 0;
+    int compar2 = 0;
+    int transf2 = 0;
+	
     random_array(array);
     bubble_sort(array, compar, transf); 
     for (int i = 0; i <= SIZE-1; i++) 
@@ -30,9 +36,12 @@ int main()
     cout << "\n\n";
 
     random_array(array);
-    select_sort(array); 
+    select_sort(array, compar2, transf2);  
     for (int i = 0; i <= SIZE-1; i++) 
         cout << array[i] << " ";
+    cout << "\n";    
+    cout << "сравнений " << compar2 << endl;
+    cout << "пересылок " << transf2 << endl;
     cout << "\n\n";
     
     random_array(array);
@@ -56,6 +65,7 @@ void random_array(int array[SIZE])
     }
 }
 
+
 void bubble_sort(int array[SIZE], int &comparison, int &transfer)
 {
     cout << "\nпузырьковая сортировка" << endl;       
@@ -63,34 +73,45 @@ void bubble_sort(int array[SIZE], int &comparison, int &transfer)
     {
         for (int j = SIZE-2; j >= i; j--)
 	{    
-	    comparison++;                        // инкремент сравнений
-	    if (array[j] > array[j+1])           // если предыдущий элемент больше следующего
+	    comparison++;                            // инкремент сравнений
+	    if (array[j] > array[j+1])               // если предыдущий элемент больше следующего
 	    {
-                int temp = array[j];             //
-                array[j] = array[j+1];           // меняю их местами
-		array[j+1] = temp;               //
-		transfer++;                      // инкремент пересылок
+                int temp = array[j];                 //
+                array[j] = array[j+1];               // меняю их местами
+		array[j+1] = temp;                   //
+		transfer++;                          // инкремент пересылок
 	    }
 	}
     }
 }
 
-void select_sort(int array[SIZE])
+
+/*
+1. Выбираем элемент с min значением и помещаем в a[0]
+2. Снова выбираем элемент с min значением из оставшихся несортированных элементов и помещаем его в a[1]
+3. И т.д., с каждым несортированным элементом, до конца. 
+*/
+void select_sort(int array[SIZE], int &comparison2, int &transfer2)
 {    
     int min, temp;
+	
     cout << "\nсортировка методом прямого выбора" << endl;       
-	for (int i = 0; i < SIZE-1; i++) 
-	{ 
-	    min = i;                                 // индекс минимального элемента
-	    for (int j = i+1; j < SIZE; j++) 
-	        if (array[j] < array[min])           // если текущий элемент меньше минимального 
-                {           
-		    min = j;                         // запоминаю его индекс
-                }                  
-	    temp = array[i];                         //
-	    array[i] = array[min];                   // меняю их местами
-	    array[min] = temp;                       //
+    for (int i = 0; i < SIZE-1; i++) 
+    { 
+        min = i;                                     // присваивание min индекса минимального элемента
+		
+        for (int j = i+1; j < SIZE; j++)
+	{
+	    if (array[j] < array[min]) min = j;      // если текущий элемент меньше минимального, запоминаю его индекс
 	}
+	    
+	if (min == i) continue; 
+	temp = array[i];                             //
+	array[i] = array[min];                       // меняю их местами
+	array[min] = temp;                           //
+	transfer2++;			             // инкремент пересылок
+    }
+    comparison2 = ((SIZE * SIZE) - SIZE) / 2;        // сравнений
 }
 
 void shaker_sort(int array[SIZE])
