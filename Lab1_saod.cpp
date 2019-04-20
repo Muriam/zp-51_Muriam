@@ -10,7 +10,7 @@ using namespace std;
 void random_array(int array[SIZE]);
 void bubble_sort(int array[SIZE], int &comparison, int &transfer);
 void select_sort(int array[SIZE], int &comparison2, int &transfer2);
-void shaker_sort(int array[SIZE]);
+void shaker_sort(int array[SIZE], int &comparison3, int &transfer3);
 
 
 int main() 
@@ -25,6 +25,8 @@ int main()
     int transf = 0;
     int compar2 = 0;
     int transf2 = 0;
+    int compar3 = 0;
+    int transf3 = 0;
 	
     random_array(array);
     bubble_sort(array, compar, transf); 
@@ -45,9 +47,12 @@ int main()
     cout << "\n\n";
     
     random_array(array);
-    shaker_sort(array);
+    shaker_sort(array, compar3, transf3); 
     for (int i=0; i <= SIZE-1; i++)
         cout << array[i] << " ";
+    cout << "\n";    
+    cout << "сравнений " << compar3 << endl;
+    cout << "пересылок " << transf3 << endl;
     cout << "\n\n";
     
      
@@ -114,34 +119,43 @@ void select_sort(int array[SIZE], int &comparison2, int &transfer2)
     comparison2 = ((SIZE * SIZE) - SIZE) / 2;        // сравнений
 }
 
-void shaker_sort(int array[SIZE])
+
+/*
+1. Проход массива сначала в прямом, потом в обратном порядке пузырьковой сортировкой... и снова туда и обратно...
+2. На каждом проходе граница останавливается на элементе так, что количество пройденных элементов уменьшается на 1 шт.
+3. "Мешать коктейль" туда сюда, пока границы не схлопнутся посередине.
+*/
+void shaker_sort(int array[SIZE], int &comparison3, int &transfer3)
 {
     int left, right, border, temp;    
+	
     cout << "\nшейкерная сортировка" << endl;
-	for (right=SIZE-1, left=0, border=-1; border!=0;)    // устанавливаю правую и левую границы
-	{
+	for (right=SIZE-1, left=0, border=-1; border!=0;)       // устанавливаю правую и левую границы
+        {
 	    border = 0;
-	    for (int i=left; i<right; i++)           // двигаюсь слева направо
+	    for (int i=left; i<right; i++, comparison3++)       // двигаюсь слева направо
 	    {
 	        if (array[i] > array[i+1])           // если текущий элемент больше следующего
-		{ 
+		{    
 		    temp = array[i];                 // 
 	            array[i] = array[i+1];           // меняю их местами
 		    array[i+1] = temp;               //
-		    border = i;                      // устанавливаю метку последней перестановки 
+		    border = i;                      // устанавливаю метку последней перестановки
+		    transfer3++;		     // инкремент пересылок
 		}
 	    }   
-		right = border;                          // запоминаю правую границу 
-		for (int i=right; i>left; i--)           // двигаюсь справа налево
+	    right = border;                          // запоминаю правую границу 
+	    for (int i=right; i>left; i--, comparison3++)       // двигаюсь справа налево
+	    {   
+	        if (array[i-1] > array[i])           // если текущий элемент меньше следующего
 		{
-		    if (array[i-1] > array[i])           // если текущий элемент меньше следующего
-		    {
-		        temp = array[i];                 // 
-			array[i] = array[i-1];           // меняю их местами
-			array[i-1] = temp;	         //
-			border = i;                      // устанавливаю метку последней перестановки
-		    }
+		    temp = array[i];                 // 
+		    array[i] = array[i-1];           // меняю их местами
+		    array[i-1] = temp;	             //
+		    border = i;                      // устанавливаю метку последней перестановки
+		    transfer3++;	             // инкремент пересылок
 		}
-		left = border;                           // запоминаю границу
-	}
+	    }   
+	    left = border;                           // запоминаю границу
+        }
 }
