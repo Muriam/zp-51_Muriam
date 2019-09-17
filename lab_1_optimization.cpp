@@ -1,40 +1,44 @@
-//Insertion Sort
-
 #include <iostream>
+#include <conio.h>
+#include <locale>
+
 using namespace std;
+
 
 int main()
 {
-	int n;
-	cout << "\nEnter the length of your array : ";
-	cin >> n;
-	int Array[n];
-	cout << "\nEnter any " << n << " Numbers for Unsorted Array : ";
+    setlocale(LC_ALL, "rus");
+    
+    int n;
+    cout << "\n¬ведите длину вашего массива: ";
+    cin >> n;
+    int Array[n];
+    cout << "\nвведите любые " << n << " чисел для вашего несортированного массива: ";
 
-	//Input
-	for (int i = 0; i < n; i++)
-	{
-		cin >> Array[i];
-	}
+    for (int i = 0; i < n; i++)
+    {
+        cin >> Array[i];
+    }
 
-	//Sorting
-	for (int i = 1; i < n; i++)
+    //сортировка вставками
+    for (int i = 1; i < n; i++)
+    {
+        int temp = Array[i];
+	int j = i - 1;
+	while (j >= 0 && temp < Array[j])
 	{
-		int temp = Array[i];
-		int j = i - 1;
-		while (j >= 0 && temp < Array[j])
-		{
-			Array[j + 1] = Array[j];
-			j--;
-		}
-		Array[j + 1] = temp;
+	    Array[j + 1] = Array[j];
+	    j--;
 	}
+	Array[j + 1] = temp;
+    }
 
-	//Output
-	cout << "\nSorted Array : ";
-	for (int i = 0; i < n; i++)
-	{
-		cout << Array[i] << "\t";
-	}
-	return 0;
+    cout << "\nотсорировано вставками: ";
+    for (int i = 0; i < n; i++)
+    {
+        cout << Array[i] << "\t";
+    }
+	
+    getch();
+    return 0;
 }
