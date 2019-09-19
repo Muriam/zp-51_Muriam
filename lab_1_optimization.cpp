@@ -1,43 +1,56 @@
 #include <iostream>
 #include <conio.h>
 #include <locale>
+#include <ctime>   //для таймера
+#include <cstdlib> //для генерации рандомных чисел
+#define SIZE 6300
+
 
 using namespace std;
 
 
 int main()
 {
-    setlocale(LC_ALL, "rus");
-    
-    int n;
-    cout << "\n¬ведите длину вашего массива: ";
-    cin >> n;
-    int Array[n];
-    cout << "\nвведите любые " << n << " чисел для вашего несортированного массива: ";
+    long int start_time = clock(); // начальное время
+   
+    setlocale(LC_ALL, "rus");	
 
-    for (int i = 0; i < n; i++)
+    srand(time(0));        
+	
+    int Array[SIZE];
+
+
+    cout << "\nИсходный массив: ";
+    for (int i = 0; i < SIZE; i++)
     {
-        cin >> Array[i];
+        Array[i] = rand()%100;
+	cout << Array[i] << "  ";
     }
 
-    //сортировка вставками
-    for (int i = 1; i < n; i++)
+/* сортировка вставками */
+    for (int i = 1; i < SIZE; i++)
     {
-        int temp = Array[i];
+	int temp = Array[i];
 	int j = i - 1;
 	while (j >= 0 && temp < Array[j])
 	{
-	    Array[j + 1] = Array[j];
-	    j--;
+            Array[j + 1] = Array[j];
+       	    j--;
 	}
 	Array[j + 1] = temp;
     }
 
-    cout << "\nотсорировано вставками: ";
-    for (int i = 0; i < n; i++)
+    cout << "\nОтсортированный массив: ";
+    for (int i = 0; i < SIZE; i++)
     {
-        cout << Array[i] << "\t";
+	cout << Array[i] << "  ";
     }
+	
+    long int end_time = clock();                   // конечное время	
+    long int time = end_time - start_time;         // искомое время	
+    cout << "\n" << "Время работы программы " << time << " миллисекунд";
+    float time2 = (float)time / 1000;
+    cout << "\n" << "То есть, это составляет " << time2 << " секунд";
 	
     getch();
     return 0;
