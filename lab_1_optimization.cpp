@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-    long int start_time = clock(); // начальное время
+    long int start_time = clock(); 		// начальное время
    
     setlocale(LC_ALL, "rus");	
 
@@ -47,9 +47,9 @@ int main()
     }
 	
     long int end_time = clock();                   // конечное время	
-    long int time = end_time - start_time;         // искомое время	
-    cout << "\n" << "Время работы программы " << time << " миллисекунд";
-    float time2 = (float)time / 1000;
+    long int time1 = end_time - start_time;         // искомое время	
+    cout << "\n" << "Время работы программы " << time1 << " миллисекунд";
+    float time2 = (float)time1 / 1000;
     cout << "\n" << "То есть, это составляет " << time2 << " секунд";
 	
     getch();
