@@ -3,43 +3,40 @@
 #include <locale>
 #include <ctime>   //для таймера
 #include <cstdlib> //для генерации рандомных чисел
-#define SIZE 6300
+#define SIZE 63
 
 
 using namespace std;
 
+void random_array(int array[SIZE]);
+void insertion_sort(int array[SIZE]);
+void merge_sort(int array[SIZE]);
+
 
 int main()
 {
-    long int start_time = clock(); 		// начальное время
+//    long int start_time = clock(); 		// начальное время
    
     setlocale(LC_ALL, "rus");	
 
     srand(time(0));        
 	
-    int Array[SIZE];
+    int array[SIZE];
 
 
-    cout << "\nИсходный массив: ";
+    random_array(array);	
+    insertion_sort(array);
     for (int i = 0; i < SIZE; i++)
     {
-        Array[i] = rand()%100;
-	cout << Array[i] << "  ";
+        cout << array[i] << "  ";
     }
 
-/* сортировка вставками */
-    for (int i = 1; i < SIZE; i++)
-    {
-	int temp = Array[i];
-	int j = i - 1;
-	while (j >= 0 && temp < Array[j])
-	{
-            Array[j + 1] = Array[j];
-       	    j--;
-	}
-	Array[j + 1] = temp;
-    }
+    random_array(array);
+	
 
+
+
+/*
     cout << "\nОтсортированный массив: ";
     for (int i = 0; i < SIZE; i++)
     {
@@ -51,7 +48,41 @@ int main()
     cout << "\n" << "Время работы программы " << time1 << " миллисекунд";
     float time2 = (float)time1 / 1000;
     cout << "\n" << "То есть, это составляет " << time2 << " секунд";
+*/
 	
     getch();
     return 0;
+}
+
+
+void random_array(int array[SIZE])
+{
+    cout << "исходный массив" << endl;
+    for (int i=0; i<SIZE; i++) 
+    {
+        array[i] = rand()%100;
+        cout << array[i] << " ";
+    }
+}
+
+void insertion_sort(int array[SIZE])
+{
+    cout << "\nотсортировано вставками" << endl;   
+    for (int i = 1; i < SIZE; i++)
+    {
+        int temp = array[i];
+	int j = i - 1;
+	while (j >= 0 && temp < array[j])
+	{
+            array[j + 1] = array[j];
+       	    j--;
+	}
+	array[j + 1] = temp;
+    }
+}
+
+void merge_sort(int array[SIZE])
+{
+	cout << "\nотсортировано слиянием" << endl; 
+	
 }
