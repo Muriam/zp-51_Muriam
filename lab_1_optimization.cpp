@@ -1,3 +1,10 @@
+/* 
+*  1. Написать программу, которая реализует сортировки: вставками и слиянием.
+*  2. Проверить правильность работы программы на нескольких тестовых наборах входных данных. 
+*  3. Выбрать размерность массива N такой, чтобы время работы программы более медленным алгоритмом было порядка 5 секунд. 
+*  4. Оценить (на 5-10 тестах) относительное быстродействие алгоритмов (сортировок).
+*/
+
 #include <iostream>
 #include <conio.h>
 #include <locale>
@@ -105,15 +112,15 @@ void Merge(int array[SIZE], int first, int last)
 	
     for (j = first; j <= last; j++) 	//выполнять от начала до конца
         if ((start <= middle) && ((finall > last) || (array[start] < array[finall])))
-	    {
-	        mas[j] = array[start];
-		start++;
-	    }
+	{
+	    mas[j] = array[start];
+	    start++;
+	}
 	else
-            {
-	        mas[j] = array[finall];
-		finall++;
-	    }
+        {
+	    mas[j] = array[finall];
+	    finall++;
+	}
 	
     //возвращение результата в список
     for (j = first; j <= last; j++) 
