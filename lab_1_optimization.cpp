@@ -11,7 +11,7 @@
 #include <ctime>   //для таймера
 #include <cstdlib> //для генерации рандомных чисел
 #include <cstring>
-#define SIZE 63     
+#define SIZE 8200     
      
 using std::cout;
 using std::endl;
@@ -21,18 +21,18 @@ int _array2[SIZE];
 int n = SIZE - 1;
 long int time1;
 
-void random_array(int* array);
-long int insertion_sort(int* array);
-void Merge(int* array, int first, int last);        //слияние массивов
-void merge_sort(int* array, int first, int last);   //рекурсивная процедура сортировки
+void random_array(int *array);
+long int insertion_sort(int *array);
+void Merge(int *array, int first, int last);        //слияние массивов
+void merge_sort(int *array, int first, int last);   //рекурсивная процедура сортировки
 
 
 int main()
 {	
 
-    setlocale(LC_ALL, "rus");
+    	setlocale(LC_ALL, "rus");
 
-    srand(time(0));
+    	srand(time(0));
 
 
 
@@ -41,7 +41,7 @@ int main()
 
 
 
-	memcpy(_array2, _array1, sizeof(int) * SIZE);          				//копия исходного массова
+	memcpy(_array2, _array1, sizeof(int) * SIZE);          					//копия исходного массова
 /*	cout << "копия исходного массива" << "\n";
 	for (int i = 0; i < SIZE; i++)
 	{
@@ -52,7 +52,7 @@ int main()
 	
 	
 	
-	insertion_sort(_array1);                							//вызов сортировки вставками	
+	insertion_sort(_array1);                						//вызов сортировки вставками	
 /*	for (int i = 0; i < SIZE; i++)
 	{
 		cout << _array1[i] << " ";
@@ -63,7 +63,7 @@ int main()
 
 
 //	cout << "\nотсортировано слиянием" << endl;
-	merge_sort(_array2, 0, n);             								//вызов сортировки слиянием
+	merge_sort(_array2, 0, n);             							//вызов сортировки слиянием
 /*	for (int i = 0; i < SIZE; i++)
 	{
 		cout << _array2[i] << " ";
@@ -82,7 +82,7 @@ int main()
 }
 
 
-void random_array(int* array)
+void random_array(int *array)
 {
 	//cout << "исходный массив" << endl;	
 	for (int i = 0; i < SIZE; i++)
@@ -94,11 +94,11 @@ void random_array(int* array)
 }
 
 
-long int insertion_sort(int* array)
+long int insertion_sort(int *array)
 {
 //	cout << "\nотсортировано вставками" << endl;
 
-long int start_time = clock(); 						// начальное время		//*************
+long int start_time = clock(); 			// начальное время  			    //*************
 
 	for (int i = 1; i < SIZE; i++)
 	{
@@ -112,25 +112,25 @@ long int start_time = clock(); 						// начальное время		//*******
 		array[j + 1] = temp;
 	}
 	
-long int end_time = clock();                    // конечное время				//*************
+long int end_time = clock();                    // конечное время			     //*************
 time1 = end_time - start_time;                  // искомое время в мсек  		     //*************
-//float time2 = (float)time1 / 1000;		   // это в секундах				//*************
+//float time2 = (float)time1 / 1000;		// это в секундах			     //*************
 
 return time1;															//*************	
 }
 
 
-void Merge(int* array, int first, int last)
+void Merge(int *array, int first, int last)
 {
 	int middle, start, finall, j;
 
 	int *mas = new int[SIZE];
 
-	middle = (first + last) / 2;						//вычисление среднего элемента
-	start = first; 								//начало левой части
-	finall = middle + 1; 							//начало правой части
+	middle = (first + last) / 2;		//вычисление среднего элемента
+	start = first; 				//начало левой части
+	finall = middle + 1; 			//начало правой части
 
-	for (j = first; j <= last; j++) 					//выполнять от начала до конца
+	for (j = first; j <= last; j++) 	//выполнять от начала до конца
 		if ((start <= middle) && ((finall > last) || (array[start] < array[finall])))
 		{
 			mas[j] = array[start];
@@ -150,15 +150,15 @@ void Merge(int* array, int first, int last)
 }
 
 
-void merge_sort(int* array, int first, int last)
+void merge_sort(int *array, int first, int last)
 {
 	//cout << "\nотсортировано слиянием" << endl;
 	{
 		if (first < last)
 		{
 			merge_sort(array, first, (first + last) / 2); 		//сортировка левой части
-			merge_sort(array, (first + last) / 2 + 1, last); 	     //сортировка правой части
-			Merge(array, first, last); 						//слияние двух частей
+			merge_sort(array, (first + last) / 2 + 1, last); 	//сортировка правой части
+			Merge(array, first, last); 				//слияние двух частей
 		}
 	}
 };
