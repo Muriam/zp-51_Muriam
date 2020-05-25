@@ -29,14 +29,14 @@ int main()
 	srand(time(0));  
 	
 	for (int i=0; i<SIZE; i++) 					// генерация 28 шт случайных чисел, от 0 до 100
-    {
-        Arr[i] = rand()%100;
-        cout << Arr[i] << " ";
-    }
-    cout << "\n";
+    	{
+        	Arr[i] = rand()%100;
+        	cout << Arr[i] << " ";
+    	}
+    	cout << "\n";
 	
 		
-	int min = Arr[0], k = 0;					  // реализация алгоритма
+	int min = Arr[0], k = 0;					// реализация алгоритма
 	
 	for (int i = 1; i < SIZE; i++)
  		if (Arr[i] < min) 
